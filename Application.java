@@ -8,71 +8,52 @@ import java.util.Scanner;
 public class Application {
     public static void main(String[] args) {
         try {
-            String command = "";
-            String commandSecond = "";
+            Map<String, String> menuItems = new HashMap<>();
+            menuItems.put("open <file>    ", "opens <file>");
+            menuItems.put("close          ", "closes currently opened file");
+            menuItems.put("save           ", "saves the currently open file");
+            menuItems.put("saveas <file>  ", "saves the currently open file in <file>");
+            menuItems.put("help           ", "prints this information");
+            menuItems.put("exit           ", "exists the program");
 
-            while (!command.equals("exit")) {
-                System.out.println("Enter a command: ");
-                Scanner sc = new Scanner(System.in);
-                command = sc.next();
-                switch (command) {
+
+            Filework myFile = new Filework();
+            String content=null;
+
+            Scanner scanner = new Scanner(System.in);
+            String choice;
+
+            do {
+                System.out.print("Enter your choice: ");
+                choice = scanner.next();
+
+                switch (choice) {
                     case "open":
-                        String fileName = sc.next();
-                        FileWriter file = new FileWriter(fileName, true);
-
-                        while(!commandSecond.equals("close")) {
-
-                            System.out.println("Enter a command: ");
-                            commandSecond = sc.next();
-
-                            switch (commandSecond) {
-                                case "close":
-
-                                    file.close();
-                                    break;
-                                case "save":
-
-                                    break;
-                                case "saveas":
-
-                                    break;
-                                case "help":
-                                    System.out.println("The following commands are supported:");
-                                    System.out.println("Open <file>          opens <file>");
-                                    System.out.println("Close                closes currently opened file");
-                                    System.out.println("Save                 saves the currently open file");
-                                    System.out.println("Save As <file>       saves the currently open file in <file>");
-                                    System.out.println("Help                 prints this information");
-                                    System.out.println("Exit                 exists the program");
-                                    break;
-                                case "exit":
-                                    System.out.println("Firs close te file! ");
-                                    break;
-                                default:
-                                    System.out.println("No such command. Try again!");
-                            }
-                        }
+                        content=myFile.OpenFile(scanner.next());
                         break;
-                    case "close","save","saveas":
-                        System.out.println("You should open a file first! ");
+                    case "close":
+                        myFile.CloseFile();
+                        break;
+                    case "save":
+                        myFile.SaveFile(content);
+                        break;
+                    case "saveas":
+                        myFile.SaveAsFile(content,scanner.next());
                         break;
                     case "help":
                         System.out.println("The following commands are supported:");
-                        System.out.println("Open <file>          opens <file>");
-                        System.out.println("Close                closes currently opened file");
-                        System.out.println("Save                 saves the currently open file");
-                        System.out.println("Save As <file>       saves the currently open file in <file>");
-                        System.out.println("Help                 prints this information");
-                        System.out.println("Exit                 exists the program");
+                        for (Map.Entry<String, String> entry : menuItems.entrySet()) {
+                            System.out.println(entry.getKey() + " " + entry.getValue());
+                        }
                         break;
                     case "exit":
-                        System.out.println("Exiting the program...\n");
-                        sc.close();
+                        System.out.println("Exiting...");
                         break;
                     default:
-                        System.out.println("No such command. Try again!");
+                        System.out.println("Invalid choice. Please enter a supported command! ");
                 }
-            }
+            } while (!choice.equals("exit"));
+            scanner.close();
         }catch (IOException e){
             e.printStackTrace();
         }
