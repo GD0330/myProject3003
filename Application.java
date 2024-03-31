@@ -1,58 +1,42 @@
 package bg.tu_varna.sit.a1.f22621658;
 
 
-import java.io.FileWriter;
+import bg.tu_varna.sit.a1.f22621658.Files.*;
+
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
         try {
-            Map<String, String> menuItems = new HashMap<>();
-            menuItems.put("open <file>    ", "opens <file>");
-            menuItems.put("close          ", "closes currently opened file");
-            menuItems.put("save           ", "saves the currently open file");
-            menuItems.put("saveas <file>  ", "saves the currently open file in <file>");
-            menuItems.put("help           ", "prints this information");
-            menuItems.put("exit           ", "exists the program");
-
+            Map<String, Command> commands = new HashMap<>();
+            commands.put("open", new OpenCommand());
+            commands.put("close", new CloseCommand());
+            commands.put("save", new SaveCommand());
+            commands.put("saveas", new SaveAsCommand());
+            commands.put("help", new HelpCommand());
+            commands.put("exit", new ExitCommand());
 
             Filework myFile = new Filework();
-            String content=null;
+            String content = null;
 
             Scanner scanner = new Scanner(System.in);
             String choice;
 
             do {
                 System.out.print("Enter your choice: ");
-                choice = scanner.next();
+                choice = scanner.next().toLowerCase();
 
-                switch (choice) {
-                    case "open":
-                        content=myFile.OpenFile(scanner.next());
-                        break;
-                    case "close":
-                        myFile.CloseFile();
-                        break;
-                    case "save":
-                        myFile.SaveFile(content);
-                        break;
-                    case "saveas":
-                        myFile.SaveAsFile(content,scanner.next());
-                        break;
-                    case "help":
-                        System.out.println("The following commands are supported:");
-                        for (Map.Entry<String, String> entry : menuItems.entrySet()) {
-                            System.out.println(entry.getKey() + " " + entry.getValue());
-                        }
-                        break;
-                    case "exit":
-                        System.out.println("Exiting...");
-                        break;
-                    default:
-                        System.out.println("Invalid choice. Please enter a supported command! ");
+                if (commands.containsKey(choice)) {
+                    Command command = commands.get(choice);
+                    content = command.execute(myFile, scanner, content);
+                } else {
+                    System.out.println("Invalid choice. Please enter a supported command!");
                 }
             } while (!choice.equals("exit"));
+
             scanner.close();
         }catch (IOException e){
             e.printStackTrace();
