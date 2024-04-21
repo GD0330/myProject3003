@@ -1,6 +1,4 @@
-package bg.tu_varna.sit.a1.f22621658;
-
-import bg.tu_varna.sit.a1.f22621658.Files.Command;
+package bg.tu_varna.sit.a1.f22621658.models;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,21 +10,11 @@ public class Hall {
 
     private Map<Integer, Seat> seats;
 
-    public Hall(int number, int numRows, int numSeatsPerRow) {
+    public Hall(int number, int numRows, int numSeatsPerRow, Map<Integer, Seat> seats) {
         this.number = number;
         this.numRows = numRows;
         this.numSeatsPerRow = numSeatsPerRow;
-        this.seats = new HashMap<>();
-        initializeSeats();
-    }
-
-    private void initializeSeats() {
-        for (int row = 1; row <= numRows; row++) {
-            for (int seatNum = 1; seatNum <= numSeatsPerRow; seatNum++) {
-                Seat seat = new Seat(row, seatNum);
-                seats.put(seatNum, seat);
-            }
-        }
+        this.seats = seats;
     }
 
     public int getNumber() {
@@ -48,6 +36,26 @@ public class Hall {
     public int getNumSeatsPerRow() {
         return numSeatsPerRow;
     }
+
+    public void setNumSeatsPerRow(int numSeatsPerRow) {
+        this.numSeatsPerRow = numSeatsPerRow;
+    }
+
+    public void setSeatState(String seatState, int i){
+        seats.get(i).setSeatState(seatState);
+    }
+
+    @Override
+    public String toString() {
+        return "Hall{" +
+                "number=" + number +
+                ", numRows=" + numRows +
+                ", numSeatsPerRow=" + numSeatsPerRow +
+                ", seats=" + seats.toString() +
+                '}';
+    }
+}
+
 
     public void setNumSeatsPerRow(int numSeatsPerRow) {
         this.numSeatsPerRow = numSeatsPerRow;
