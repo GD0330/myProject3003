@@ -19,8 +19,8 @@ public class Application {
             commands.put("help", new HelpCommand());
             commands.put("exit", new ExitCommand());
 
-            Filework myFile = new Filework();
             String content = null;
+            String filename=null;
 
             Scanner scanner = new Scanner(System.in);
             String choice;
@@ -29,9 +29,14 @@ public class Application {
                 System.out.print("Enter your choice: ");
                 choice = scanner.next().toLowerCase();
 
-                if (commands.containsKey(choice)) {
-                    Command command = commands.get(choice);
-                    content = command.execute(myFile, scanner, content);
+                if (fileCommands.containsKey(choice)) {
+                    if (choice.equals("open")){
+                        filename=scanner.next();
+                    } else if (choice.equals("close")) {
+                        filename=null;
+                    }
+                    Command command = fileCommands.get(choice);
+                    content = command.execute(filename, scanner, content);
                 } else {
                     System.out.println("Invalid choice. Please enter a supported command!");
                 }
