@@ -1,15 +1,15 @@
-package bg.tu_varna.sit.a1.f22621658;
+package bg.tu_varna.sit.a1.f22621658.models;
 
 public class Seat {
     private int row;
     private int numSeat;
 
-    private Boolean isItFree;
+    private String seatState;
 
     public Seat(int row, int numSeat) {
         this.row = row;
         this.numSeat = numSeat;
-        this.isItFree = true;
+        this.seatState = "Free";
     }
 
     public int getRow() {
@@ -28,11 +28,20 @@ public class Seat {
         this.numSeat = numSeat;
     }
 
-    public Boolean getItFree() {
-        return isItFree;
+    public String getSeatState() {
+        return seatState;
     }
 
-    public void setItFree(Boolean itFree) {
-        isItFree = itFree;
+    public void setSeatState(String seatState) {
+        this.seatState = seatState;
+    }
+
+    @Override
+    public String toString() {
+        return "Seat{" +
+                "row=" + row +
+                ", numSeat=" + numSeat +
+                ", seatState='" + seatState + '\'' +
+                '}';
     }
 }
