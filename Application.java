@@ -1,23 +1,27 @@
 package bg.tu_varna.sit.a1.f22621658;
 
-
-import bg.tu_varna.sit.a1.f22621658.Files.*;
+import bg.tu_varna.sit.a1.f22621658.fileCommands.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
         try {
-            Map<String, Command> commands = new HashMap<>();
-            commands.put("open", new OpenCommand());
-            commands.put("close", new CloseCommand());
-            commands.put("save", new SaveCommand());
-            commands.put("saveas", new SaveAsCommand());
-            commands.put("help", new HelpCommand());
-            commands.put("exit", new ExitCommand());
+            Map<String, Command> fileCommands = new HashMap<>();
+            fileCommands.put("open", new OpenCommand());
+            fileCommands.put("close", new CloseCommand());
+            fileCommands.put("save", new SaveCommand());
+            fileCommands.put("saveas", new SaveAsCommand());
+            fileCommands.put("help", new HelpCommand());
+            fileCommands.put("exit", new ExitCommand());
+            fileCommands.put("addevent",new AddEventCommand());
+            fileCommands.put("freeseats",new FreeSeatsCommand());
+            fileCommands.put("book",new BookCommand());
+            fileCommands.put("unbook",new UnBookCommand());
+            fileCommands.put("buy",new BuyCommand());
+            fileCommands.put("bookings",new BookingsCommand());
+            fileCommands.put("show",new Show());
 
             String content = null;
             String filename=null;
