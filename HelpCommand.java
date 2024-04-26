@@ -11,6 +11,18 @@ public class HelpCommand implements Command {
         System.out.println("saveas <file>  - saves the currently open file in <file>");
         System.out.println("help           - prints this information");
         System.out.println("exit           - exits the program");
+        System.out.println("addevent       - adds new event");
+        System.out.println("<date> <name>");
+        System.out.println("freeseats      - checks which seats are Free");
+        System.out.println("book <name>    - books a seat ");
+        System.out.println("<date> <row>");
+        System.out.println("<seat> <note>");
+        System.out.println("unbook <name>  - cancel a booked seat");
+        System.out.println("<date> <row>");
+        System.out.println("<seat>");
+        System.out.println("buy <name>     - buys a seat");
+        System.out.println("<date> <row>");
+        System.out.println("<seat>");
         return content;
     }
 }
