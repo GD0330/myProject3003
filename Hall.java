@@ -7,14 +7,31 @@ public class Hall {
     private int number;
     private int numRows;
     private int numSeatsPerRow;
-
     private Map<Integer, Seat> seats;
 
-    public Hall(int number, int numRows, int numSeatsPerRow, Map<Integer, Seat> seats) {
-        this.number = number;
-        this.numRows = numRows;
-        this.numSeatsPerRow = numSeatsPerRow;
-        this.seats = seats;
+    public Hall(int number){
+        switch (number) {
+            case 1:
+                this.number = 1;
+                this.numRows = 5;
+                this.numSeatsPerRow = 7;
+                break;
+            case 2:
+                this.number = 2;
+                this.numRows = 10;
+                this.numSeatsPerRow = 10;
+                break;
+            case 3:
+                this.number = 3;
+                this.numRows = 9;
+                this.numSeatsPerRow = 8;
+                break;
+            default:
+                System.out.println("No such Hall !");
+                return;
+        }
+        this.seats = new HashMap<>();
+        initializeSeats();
     }
 
     public int getNumber() {
@@ -40,6 +57,10 @@ public class Hall {
     public void setNumSeatsPerRow(int numSeatsPerRow) {
         this.numSeatsPerRow = numSeatsPerRow;
     }
+    
+    public void setNumSeatsPerRow(int numSeatsPerRow) {
+        this.numSeatsPerRow = numSeatsPerRow;
+    }
 
     public void setSeatState(String seatState, int i){
         seats.get(i).setSeatState(seatState);
@@ -53,11 +74,5 @@ public class Hall {
                 ", numSeatsPerRow=" + numSeatsPerRow +
                 ", seats=" + seats.toString() +
                 '}';
-    }
-}
-
-
-    public void setNumSeatsPerRow(int numSeatsPerRow) {
-        this.numSeatsPerRow = numSeatsPerRow;
     }
 }
