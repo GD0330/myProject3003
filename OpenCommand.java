@@ -21,7 +21,7 @@ public class OpenCommand implements Command {
             String line;
             StringBuilder rawContent = new StringBuilder();
             while ((line = reader.readLine()) != null) {
-                rawContent.append(line).append("\n");
+                rawContent.append(line);
             }
             reader.close();
             System.out.println("File opened successfully.");
