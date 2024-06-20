@@ -3,7 +3,6 @@ package bg.tu_varna.sit.a1.f22621658.fileCommands;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class SaveAsCommand implements Command {
     public Calendars execute( String[] param, Calendars calendars) throws IOException {
