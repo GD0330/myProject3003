@@ -4,5 +4,5 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public interface Command {
-    String execute(String filename, Scanner scanner, String content) throws IOException;
+    Calendars execute( String[] param, Calendars calendars) throws IOException;
 }
