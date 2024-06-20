@@ -11,6 +11,31 @@ public class Event {
         this.hall = hall;
     }
 
+    public String getHallNumber(){
+        return this.hall.getNumber();
+    }
+    public int getHallSize(){
+        return this.hall.getHallTotalSeats();
+    }
+    public int getCertainSeatID(int i){
+        return this.hall.getSeats().get(i).getNumSeat();
+    }
+    public String getCertainSeatState(int i){
+        return this.hall.getSeats().get(i).getSeatState();
+    }
+    public void setCertainSeatState(int i,String state){
+        this.hall.setSeatState(i,state);
+    }
+    public int getCertainSeatRow(int i){
+        return this.hall.getSeats().get(i).getRow();
+    }
+    public int getNumberOfRows(){
+        return this.hall.getNumRows();
+    }
+    public int getNumberOfSeatsPerRow(){
+        return this.hall.getNumSeatsPerRow();
+    }
+
     public String getDate() {
         return date;
     }
