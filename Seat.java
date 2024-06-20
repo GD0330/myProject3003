@@ -24,10 +24,6 @@ public class Seat {
         return numSeat;
     }
 
-    public void setNumSeat(int numSeat) {
-        this.numSeat = numSeat;
-    }
-
     public String getSeatState() {
         return seatState;
     }
