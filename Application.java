@@ -7,7 +7,11 @@ import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
+
         try {
+            System.out.println("Welcome to Ticket Station ");
+            System.out.println("For a list of commands type 'help' ");
+
             Map<String, Command> fileCommands = new HashMap<>();
             fileCommands.put("open", new OpenCommand());
             fileCommands.put("close", new CloseCommand());
@@ -21,38 +25,44 @@ public class Application {
             fileCommands.put("unbook",new UnBookCommand());
             fileCommands.put("buy",new BuyCommand());
             fileCommands.put("bookings",new BookingsCommand());
-            fileCommands.put("show",new Show());
+            fileCommands.put("check",new CheckCommand());
+            fileCommands.put("report",new ReportCommand());
+            fileCommands.put("mostviewed",new MostViewedCommand());
 
-            String content = null;
-            String filename=null;
-
+            Calendars calendars=new Calendars();
             Scanner scanner = new Scanner(System.in);
             String choice;
 
             do {
-                System.out.print("Enter your choice: ");
-                choice = scanner.next().toLowerCase();
+                System.out.print("Enter a command: ");
+                String line= scanner.nextLine();
+                String[] param=line.split(" ");
+                choice = param[0].toLowerCase();
 
                 if (fileCommands.containsKey(choice)) {
                     if (choice.equals("open")){
-                        filename=scanner.next();
+                        OpenCommand.filename=param[1];
                     } else if (choice.equals("close")) {
-                        filename=null;
+                        OpenCommand.filename=null;
                     }
+
                     Command command = fileCommands.get(choice);
-                    content = command.execute(filename, scanner, content);
+                    calendars=command.execute(param,calendars);
                 } else {
                     System.out.println("Invalid choice. Please enter a supported command!");
                 }
             } while (!choice.equals("exit"));
 
             scanner.close();
-        }catch (IOException e){
+
+        }catch (IndexOutOfBoundsException b){
+            System.out.println("You didnt enter the needed parameters for the command! ");
+            System.out.println("Ïf you dont know what the command need, first use 'help' next time! ");
+        }
+        catch (IOException e){
+            System.out.println("Exception!");
             e.printStackTrace();
         }
-
-
-
 
     }
 }
