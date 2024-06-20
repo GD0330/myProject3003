@@ -3,15 +3,12 @@ package bg.tu_varna.sit.a1.f22621658.fileCommands;
 import bg.tu_varna.sit.a1.f22621658.models.Calendar;
 import bg.tu_varna.sit.a1.f22621658.models.Event;
 import bg.tu_varna.sit.a1.f22621658.models.Hall;
-import bg.tu_varna.sit.a1.f22621658.models.Seat;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class SimpleContentHandler implements ContentHandler{
-    @Override
+    
     public Calendars decode(String content) {
         Calendars calendar=new Calendars();
+        
         String[] allEvents =content.split("#");
         String[] singleEventInfo;
         String[] eventDateAndName;
@@ -22,16 +19,12 @@ public class SimpleContentHandler implements ContentHandler{
             eventDateAndName=singleEventInfo[0].split(";");
             hallInfo=singleEventInfo[1].split(";");
 
-            int k=3;
-            Map<Integer, Seat> seats= new HashMap<>();
-
-            int r=Integer.parseInt(hallInfo[1]);
-            int sN=Integer.parseInt(hallInfo[2]);
+            int k=1;
             
-            Hall hall = new Hall(Integer.valueOf(hallInfo[0]));
+            Hall hall = new Hall(hallInfo[0]);
 
-            for (int j = 1; j < hall.getNumRows()*hall.getNumSeatsPerRow()+1; j++) {
-                hall.getSeats().get(j).setSeatState(hallInfo[k]);
+            for (int j = 1; j < (hall.getHallTotalSeats())+1; j++) {
+                hall.setSeatState(j,hallInfo[k]);
                 k++;
             }
 
@@ -41,17 +34,19 @@ public class SimpleContentHandler implements ContentHandler{
         }
         return calendar;
     }
-    @Override
+   
     public String encode(Calendars calendars) {
         StringBuilder strB=new StringBuilder();
-        for (int i = 0; i < calendars.getEvents().size(); i++) {
-            strB.append(calendars.getEvents().get(i).getDate()+ ";"+
-                    calendars.getEvents().get(i).getName()+ ";]");
-            strB.append(calendars.getEvents().get(i).getHall().getNumber()+";"+
-                    calendars.getEvents().get(i).getHall().getNumRows()+";"+
-                    calendars.getEvents().get(i).getHall().getNumSeatsPerRow()+";");
-            for (int j = 1; j < calendars.getEvents().get(i).getHall().getNumRows()* calendars.getEvents().get(i).getHall().getNumSeatsPerRow()+1; j++) {
-                strB.append(calendars.getEvents().get(i).getHall().getSeats().get(j).getSeatState()+";");
+        for (int i = 0; i < calendars.getCalendarsSize(); i++) {
+            strB.append(calendars.getCertainEventDate(i));
+            strB.append(";");
+            strB.append(calendars.getCertainEventName(i));
+            strB.append(";]");
+            strB.append(calendars.getEvents().get(i).getHallNumber());
+            strB.append(";");
+            for (int j = 1; j < calendars.getEvents().get(i).getHallSize()+1; j++) {
+                strB.append(calendars.getEvents().get(i).getCertainSeatState(j));
+                strB.append(";");
             }
             strB.append("#");
         }
