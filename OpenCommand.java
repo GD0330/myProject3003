@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class OpenCommand implements Command {
+        public static String filename;
         @Override
         public Calendars execute( String[] param, Calendars calendars) throws IOException {
             File file = new File(filename);
