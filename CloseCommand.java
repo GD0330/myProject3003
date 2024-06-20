@@ -3,11 +3,13 @@ package bg.tu_varna.sit.a1.f22621658.fileCommands;
 import java.util.Scanner;
 
 public class CloseCommand implements Command {
-    public String execute(String filename, Scanner scanner, String content) {
-        if (filename == null ) {
-            System.out.println("No file is currently opened.");
+    public Calendars execute( String[] param, Calendars calendars) {
+        if (OpenCommand.filename == null ) {
+            System.out.println("File Closed");
         }
-        System.out.println("File closed successfully.");
+        else {
+            System.out.println("File couldn't close");
+        }
         return null;
     }
 
