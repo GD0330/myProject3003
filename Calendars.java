@@ -9,15 +9,37 @@ public class Calendars {
     public Calendars() {
         this.events = new ArrayList<>();
     }
-    public void addEvent(Event event) {
+
+    public boolean addEvent(Event event) {
         for (Event oldEvent : events) {
-            if ((oldEvent.getDate()).equals(event.getDate())&&oldEvent.getHall().getNumber()==event.getHall().getNumber()){
+            if ((oldEvent.getDate()).equals(event.getDate())&&
+                    oldEvent.getHallNumber().equals(event.getHallNumber())){
                 System.out.println("Cant have an event on this date and in this hall! Its already taken!");
-                return;
+                return false;
             }
         }
         events.add(event);
+        return true;
     }
+    public int getCalendarsSize(){
+        return  this.events.size();
+    }
+    public String getCertainEventDate(int i){
+        return this.events.get(i).getDate();
+    }
+    public String getCertainEventName(int i){
+        return this.events.get(i).getName();
+    }
+    public Event getCertainEvent(int i){
+        return this.events.get(i);
+    }
+    public void setCertainEvent(int i,Event event){
+        this.events.set(i,event);
+    }
+    public List<Event> getEvents() {
+        return events;
+    }
+
     @Override
     public String toString() {
         StringBuilder info=new StringBuilder();
@@ -26,9 +48,5 @@ public class Calendars {
 
         }
         return info.toString();
-    }
-
-    public List<Event> getEvents() {
-        return events;
     }
 }
