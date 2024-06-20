@@ -34,37 +34,38 @@ public class Hall {
         initializeSeats();
     }
 
-    public int getNumber() {
-        return number;
+    private void initializeSeats() {
+        int seatId=1;
+        for (int row = 1; row <= numRows; row++) {
+            for (int seatNum = 1; seatNum <= numSeatsPerRow; seatNum++) {
+                Seat seat = new Seat(row, seatNum);
+                seats.put(seatId, seat);
+                seatId++;
+            }
+        }
     }
-
-    public void setNumber(int number) {
-        this.number = number;
+    public int getHallTotalSeats(){
+        return this.numRows*this.numSeatsPerRow;
+    }
+    public void setSeatState(int i,String state){
+        this.seats.get(i).setSeatState(state);
+    }
+    public String getNumber() {
+        return number;
     }
 
     public int getNumRows() {
         return numRows;
     }
 
-    public void setNumRows(int numRows) {
-        this.numRows = numRows;
-    }
-
     public int getNumSeatsPerRow() {
         return numSeatsPerRow;
     }
 
-    public void setNumSeatsPerRow(int numSeatsPerRow) {
-        this.numSeatsPerRow = numSeatsPerRow;
-    }
-    
-    public void setNumSeatsPerRow(int numSeatsPerRow) {
-        this.numSeatsPerRow = numSeatsPerRow;
+    public Map<Integer, Seat> getSeats() {
+        return seats;
     }
 
-    public void setSeatState(String seatState, int i){
-        seats.get(i).setSeatState(seatState);
-    }
 
     @Override
     public String toString() {
